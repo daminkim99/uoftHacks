@@ -15,16 +15,17 @@ function Keyword() {
 
     return (
         <div>
-            <h1>Enter some keywords about your research...</h1>
-            <h2>Separate your keywords by spaces.</h2>
+            <h1 className='keywords-title'>Enter some keywords about your research...</h1>
+            <h2 className='keywords-sub'>Separate your keywords by spaces.</h2>
             <div className='input-container'>
                 <input
+                    className='input-keywords'
                     type="text"
                     placeholder="Enter keywords"
                     value={text}
                     onChange={handleChange}
                 />
-                <button onClick={handleClick}>Enter</button>
+                <button className='enter-keywords' onClick={handleClick}>Enter</button>
             </div>
         </div>
     );
