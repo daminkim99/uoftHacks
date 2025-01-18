@@ -116,6 +116,8 @@ def NER_with_SciBERT(text: str, similarity_threshold: float = 0.56):
     - similarity_threshold: Minimum cosine similarity score to retain an entity.
     """
     # Extract entities using spaCy NER
+    #preprocess the text
+    text = preprocess_text(text)
     entities = NER(text)
     
     # List to store validated entities
@@ -143,11 +145,11 @@ def keyword_pull_article(
     #first_sentences,
     keywords,
     similarity,
-    similarity_threshold: float = 0.4,  
+    similarity_threshold: float = 0.3,  
     sentiment_weight: float = 0.2,     
     similarity_cap: float = 0.9445,
-    top_k: int = 120,                    
-    string_similarity_threshold: float = 0.1,  ):  
+    top_k: int = 140,                    
+    string_similarity_threshold: float = 0.1):  
     #if first_sentences:
     # Preprocess the first sentences
        # sorted_keywords = first_sentences(string, first_sentences)
@@ -201,11 +203,17 @@ def keyword_pull_article(
     # Remove duplicate abstracts and their corresponding titles
     unique_abstracts = list(dict.fromkeys(abstracts))
     unique_titles = []
+    unique_authors = []
+    unique_urls = []
     seen = set()
     for i, abstract in enumerate(abstracts):
         if abstract in unique_abstracts and abstract not in seen:
             unique_titles.append(titles[i])
             seen.add(abstract)
+            unique_authors.append(authors[i])
+            unique_urls.append(urls[i])
+
+            
     
     abstracts = unique_abstracts
     titles = unique_titles
