@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+	font-family: 'Inter', sans-serif;
+}
+
+.sub {
+	display: flex;
+	width: 75%;
+	margin-left: 12.5%;
+	margin-bottom: 0;
+	flex-direction: column;
+	flex-shrink: 0;
+	color: #060011;
+	font-family: Inter;
+	font-size: 80px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	letter-spacing: -1.36px;
+}
+
+.sub-sub {
+	display: flex;
+	width: 75%;
+	margin-left: 12.5%;
+	margin-top: 1%;
+	flex-direction: column;
+	justify-content: center;
+	flex-shrink: 0;
+	color: #635878;
+	font-family: Inter;
+	font-size: 35px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: -0.68px;
+}
+
+.landing-button {
+	display: flex;
+	width: 13%;
+	height: 36px;
+	margin-left: 12.5%;
+	flex-direction: column;
+	justify-content: center;
+	flex-shrink: 0;
+	border-radius: 10px;
+	background: #A58FCC;
+	color: #010003;
+	text-align: center;
+	font-family: Inter;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: -0.51px;
+	cursor: pointer;
+	transition: box-shadow 0.3s ease;
+}
+
+.landing-button:hover {
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+}

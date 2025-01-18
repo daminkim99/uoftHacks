@@ -8,7 +8,6 @@ function App() {
   return(
     <div>
       <header>
-      <h1><a href="/">Logo</a></h1>
       <a href="/keyword">Keyword</a> |
       <a href="/TextEditor">TextEditor</a>
       </header>
