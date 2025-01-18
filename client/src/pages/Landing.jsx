@@ -12,8 +12,8 @@ const Landing = () => {
     return (
             <div className='container'>
             <div className='box1'>
-            <h2 className='sub'>Streamline your scientific papers.</h2>
-            <h3 className='sub-sub'>More selling product</h3>
+            <h2 className='sub'>Strengthen every argument</h2>
+            <h3 className='sub-sub'>Subsubsubsub</h3>
             <button className='landing-button' onClick={handleClick}>Try it for free</button>
             </div>
             <div>

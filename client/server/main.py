@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import json
+from pydantic import BaseModel
 
 app = FastAPI()
 from bert import keyword_pull_article, extract_keywords, NER_with_SciBERT
@@ -27,7 +28,7 @@ async def save_keywords(request: Request):
 @app.post("/extract_keywords")
 def extract_keywords_endpoint(input: TextInput):
     keywords = NER_with_SciBERT(input.text)
-    return {"keywords": keywords}
+    return(keyword_pull_article(keywords))
 
 @app.get("/")
 async def get_data():
