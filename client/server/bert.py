@@ -106,7 +106,7 @@ def compute_entity_similarity(text: str, entity: str):
     # Compute cosine similarity
     cosine_sim = F.cosine_similarity(cls_text, cls_entity).item()
     return cosine_sim
-def NER_with_SciBERT(text: str, similarity_threshold: float = 0.6):
+def NER_with_SciBERT(text: str, similarity_threshold: float = 0.56):
     """
     Apply NER to identify research-related entities and validate them using SciBERT similarity.
     Returns a list of unique, contextually relevant entities.
@@ -140,22 +140,22 @@ def NER_with_SciBERT(text: str, similarity_threshold: float = 0.6):
 
 def keyword_pull_article(
     string,
-    first_sentences,
+    #first_sentences,
     keywords,
     similarity,
-    similarity_threshold: float = 0.2,  
-    sentiment_weight: float = 0.4,     
+    similarity_threshold: float = 0.4,  
+    sentiment_weight: float = 0.2,     
     similarity_cap: float = 0.9445,
     top_k: int = 120,                    
     string_similarity_threshold: float = 0.1,  ):  
-    if first_sentences:
+    #if first_sentences:
     # Preprocess the first sentences
-        sorted_keywords = first_sentences(string, first_sentences)
-    else:
+       # sorted_keywords = first_sentences(string, first_sentences)
+    #else:
     # Sort keywords by their corresponding similarity scores in descending order
-        sorted_keywords = [kw for _, kw in sorted(zip(similarity, keywords), reverse=True)]
+    sorted_keywords = [kw for _, kw in sorted(zip(similarity, keywords), reverse=True)]
     # Determine the split index at roughly one-third of the keywords
-    split_idx = max(1, len(sorted_keywords) // 6)
+    split_idx = max(1, len(sorted_keywords) // 7)
     
     # Join the first third of the keywords with '+'
     primary_keywords = "+".join([k+"~5" for k in sorted_keywords[:split_idx]])
@@ -296,7 +296,7 @@ def keyword_pull_article(
     res = json.loads(res)
     with open("data.json", "w") as f:
         json.dump(res, f, indent=4)
-    return {"status": "Keywords saved successfully!"}
+    return {"status": "Oliver's Keywords saved successfully!"}
 
 
 def first_sentences(keywords: str, doc_level,cut_off: float = 0.5):
