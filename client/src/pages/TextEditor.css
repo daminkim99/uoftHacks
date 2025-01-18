@@ -29,9 +29,9 @@
 
 }
 .textbox::placeholder {
-    color: #635878;; /* Change the color of the placeholder text */
-    font-size: 1em; /* Change the font size */
-    font-family: Inter, sans-serif; /* Change the font family */
+    color: #635878;; 
+    font-size: 1em;
+    font-family: Inter, sans-serif;
 }
 
 .container-text {
@@ -47,7 +47,6 @@
     margin-top:5vw;
     height:80vh;
 }
-
 
 .match-container {
     flex: 1;
@@ -84,7 +83,6 @@
 .padding-rectangle {
     padding: 6%;
     height: 90%;
-    /* flex-shrink: 0; */
     width:100%;
    
 }
@@ -96,7 +94,6 @@
 
 .smaller-match-rectangle {
     z-index: 1;
-    /* width: 310px; */
     height: 45%;
     flex-shrink: 0;
     border-radius: 28px;
@@ -159,7 +156,6 @@
     display: flex;
     position: relative;
     overflow: hidden;
-    /* width: 90%; */
     height: 75%;
     max-height: 100%;
     margin: 0 5% 5%;

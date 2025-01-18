@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
-import ReactQuill from "react-quill"
 import './TextEditor.css'
-import "../../node_modules/react-quill/dist/quill.snow.css"
 import data from '../../server/result.json'
 import { motion } from "motion/react"
 
