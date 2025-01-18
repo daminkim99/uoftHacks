@@ -64,3 +64,13 @@
 	background-color: #7b669f;
 	box-shadow: 0 5px 15px rgba(68, 57, 109, 0.3) !important; 
 }
+
+.background_img {
+		margin:5vw;
+		position: absolute; 
+		top: 0;
+		right: 0;
+		height: 85%;
+		object-fit: contain;
+		z-index: -1; 
+}
