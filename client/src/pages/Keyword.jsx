@@ -30,7 +30,7 @@ function Keyword() {
     const navigate = useNavigate()
     const handleClick = async() => {
         try {
-            await axios.post("http://127.0.0.1:8000/save-keywords/", { keywords });
+            await axios.post("http://127.0.0.1:8001/save-keywords/", { keywords });
             console.log("Keywords saved successfully!");
         } catch (error) {
             console.error("Error saving keywords:", error);
@@ -42,7 +42,7 @@ function Keyword() {
     return (
         <div>
             <h1 className='keywords-title'>Enter some keywords about your research...</h1>
-            <h2 className='keywords-sub'>Separate your keywords by spaces.</h2>
+            <h2 className='keywords-sub'>Separate your keywords by pressing enter.</h2>
             <div className='input-container'>
                 <div className="keywords-area">
                     {keywords.map((keyword, index) => (

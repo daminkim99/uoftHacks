@@ -8,6 +8,7 @@ import requests
 from gensim.parsing.preprocessing import STOPWORDS  # Added Gensim's stopwords
 import spacy
 import torch.nn.functional as F
+import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -42,6 +43,7 @@ def preprocess_text(text: str) -> str:
     # Reconstruct the text
     preprocessed_text = ' '.join(lemmatized_tokens)
     return preprocessed_text
+
 def NER(text: str):
     """
     Apply NER to identify research-related entities
@@ -51,6 +53,7 @@ def NER(text: str):
     research_entities = [ent.text for ent in doc.ents]
     unique_entities = list(set(research_entities))
     return unique_entities
+
 def extract_keywords(text: str):
     """
     Extract top 10 keywords from the preprocessed text using SciBERT's attention weights.
