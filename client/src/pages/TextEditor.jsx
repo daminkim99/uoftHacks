@@ -2,10 +2,14 @@ import React, {useState, useEffect} from 'react';
 import './TextEditor.css'
 import rawData from '../../server/data.json'
 import { motion } from "motion/react"
+import { saveAs } from "file-saver";
+import axios from 'axios';
 
 const TextEditor = () => {
     const [body,setBody] = useState("");
     const [background, setBackground] = useState('');
+    const [typingTimeout, setTypingTimeout] = useState(null);
+
     const [selectedText, setSelectedText] = useState('');
 
     const handleSelection = (e) => {
@@ -41,8 +45,36 @@ const TextEditor = () => {
     const handleBody= e => {
         const value = e.target.value; 
         setBody(value);
+
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+
+        const timeout = setTimeout(() => {
+            saveContentToServer(value);
+        }, 2000);
+
+        setTypingTimeout(timeout);
+
         console.log(value);
     }
+
+    const saveContentToServer = async () => {
+        try {
+            const response = await axios.post("http://localhost:5000/save-json", {
+                text: body,
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to save content");
+            }
+            console.log("Content saved successfully");
+        } catch (error) {
+            console.error("Error saving content:", error);
+        }
+    };
+
+
 
     useEffect(() => {
         const { sentiments } = rawData;
@@ -57,12 +89,10 @@ const TextEditor = () => {
 
     const combinedData = rawData.titles.map((title, index) => ({
         title,
-        author: rawData.authors[index],
+        author: rawData.authors[index], /* author will be in 2d array*/
         url: rawData.urls[index],
         abstract: rawData.abstracts[index],
     }));
-
-
 
     return (
             <div className="parent">
