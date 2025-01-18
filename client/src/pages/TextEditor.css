@@ -109,6 +109,14 @@
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    transition: drop-shadow 0.3s ease;
+    outline: none;
+}
+
+.smaller-match-rectangle:hover {
+    filter: drop-shadow(0 0 5px #49415a);
+    cursor: pointer;
+    outline: none;
 }
 
 .science-title {

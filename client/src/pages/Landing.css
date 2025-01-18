@@ -7,13 +7,13 @@
 .sub {
 	display: flex;
 	width: 75%;
-	margin-left: 12.5%;
+	margin-left: 11%;
 	margin-bottom: 0;
 	flex-direction: column;
 	flex-shrink: 0;
 	color: #060011;
 	font-family: Inter;
-	font-size: 80px;
+	font-size: 65px;
 	font-style: normal;
 	font-weight: 700;
 	line-height: normal;
@@ -22,7 +22,7 @@
 
 .sub-sub {
 	display: flex;
-	width: 75%;
+	width: 60%;
 	margin-left: 12.5%;
 	margin-top: 1%;
 	flex-direction: column;
