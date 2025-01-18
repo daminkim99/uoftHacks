@@ -9,18 +9,24 @@ const TextEditor = () => {
     
 
     const handleBody= e => {
-        console.log(e);
-        setBody(e)
+        const value = e.target.value; 
+        setBody(value);
+        console.log(value);
     }
+
     return (
             <div>
             <h2>Text Editor</h2>
-            <ReactQuill 
-            
-            placeholder="Write text"
+            <textarea 
+            className="textbox"
+            value = {body}
             onChange={handleBody}
-            value={body}
+            placeholder="Write text"
+            rows="30"
+            cols="80"
+            
             />
+            
             </div>
         )
     }

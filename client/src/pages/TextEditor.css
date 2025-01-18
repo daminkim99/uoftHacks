@@ -1,5 +1,12 @@
 * {
 	font-family: 'Inter', sans-serif;
     color:black;
-
+   
 }
+
+.textbox {
+    border: 5px solid #F6F2FF;
+    background-color:#F6F2FF;
+    border-radius:15px;
+}
+
