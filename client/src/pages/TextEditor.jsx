@@ -6,6 +6,18 @@ import { motion } from "motion/react"
 const TextEditor = () => {
     const [body,setBody] = useState("");
     const [background, setBackground] = useState('');
+    const [selectedText, setSelectedText] = useState('');
+
+    const handleSelection = (e) => {
+        const start = e.target.selectionStart;
+        const end = e.target.selectionEnd; 
+        const selectedText = body.substring(start, end);
+
+        if (selectedText){
+            setSelectedText(selectedText);
+            console.log(selectedText);
+        }
+    }
 
     const redStart = 191, greenStart = 200, blueStart = 255; // Red: RGB(255, 0, 0)
     const redEnd = 247, greenEnd = 163, blueEnd = 163; // Blue: RGB(0, 0, 255)
@@ -60,6 +72,7 @@ const TextEditor = () => {
                        className="textbox"
                        value = {body}
                        onChange={handleBody}
+                       onSelect={handleSelection}
                        placeholder="Add your text here"
                        />
              </div>
