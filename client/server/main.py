@@ -30,9 +30,3 @@ def extract_keywords_endpoint(input: TextInput):
     keywords = NER_with_SciBERT(input.text)
     return(keyword_pull_article(keywords))
 
-@app.get("/")
-async def get_data():
-    # Load data from a JSON file
-    with open("data.json") as json_file:
-        data = json.load(json_file)
-    return JSONResponse(content=data)
