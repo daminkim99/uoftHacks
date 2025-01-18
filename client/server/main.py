@@ -32,10 +32,3 @@ def extract_keywords_endpoint(input: TextInput):
     similarities  = [k["similarity"] for k in keywords]
     return(keyword_pull_article(input.text,keywords_list,similarities))
 
-@app.get("/")
-async def get_data():
-    # Load data from a JSON file
-    with open("data.json") as json_file:
-        data = json.load(json_file)
-    return JSONResponse(content=data)
-        
