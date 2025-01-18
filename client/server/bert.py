@@ -278,7 +278,7 @@ def keyword_pull_article(
     similarity_to_string_top = string_similarities[top_index]
     similarity_to_string_bot = string_similarities[bot_index]
 
-    return {
+    res =  {
         "titles": [titles[top_index], titles[bot_index]],
         "authors": [authors[top_index], authors[bot_index]],
         "urls": [urls[top_index], urls[bot_index]],
@@ -287,4 +287,8 @@ def keyword_pull_article(
         "similarity": best_similarity,
         "similarity_to_string": [similarity_to_string_top, similarity_to_string_bot]
     }
+    #save the jason file
+    with open("data.json", "w") as f:
+        json.dump(res, f)
+    return {"status": "Keywords saved successfully!"}
 
