@@ -1,12 +1,18 @@
 import './Landing.css'
+import { useNavigate } from 'react-router-dom'
 
 const Landing = () => {
+
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate("/keyword");
+    };
 
     return (
             <div>
             <h2 class='sub'>Streamline your scientific papers.</h2>
             <h3 class='sub-sub'>More selling product</h3>
-            <button class='landing-button'>Try it for free</button>
+            <button class='landing-button' onClick={handleClick}>Try it for free</button>
            
             </div>
         )

@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 function Keyword() {
     const [text, setText] = useState("");
     const handleChange = (event) => {
         setText(event.target.value);
+    };
+
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate("/textEditor");
     };
 
     return (
@@ -26,7 +32,7 @@ function Keyword() {
                     color: "black"
                 }}
             />
-            <button>Enter</button>
+            <button onClick={handleClick}>Enter</button>
         </div>
     );
 }
