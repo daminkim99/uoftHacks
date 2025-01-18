@@ -59,16 +59,18 @@ const TextEditor = () => {
         console.log(value);
     }
 
-    const saveContentToServer = async () => {
+    const saveContentToServer = async (value) => {
         try {
             const response = await axios.post("http://localhost:5000/save-json", {
-                text: body,
+                text: value,
             });
 
-            if (!response.ok) {
+            if (response.status >= 200 && response.status < 300) {
+                console.log("Content saved successfully");
+            } else {
                 throw new Error("Failed to save content");
             }
-            console.log("Content saved successfully");
+    
         } catch (error) {
             console.error("Error saving content:", error);
         }
