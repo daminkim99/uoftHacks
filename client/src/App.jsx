@@ -7,10 +7,10 @@ function App() {
 
   return(
     <div>
-      <header>
+      {/* <header>
       <a href="/keyword">Keyword</a> |
-      <a href="/TextEditor">TextEditor</a>
-      </header>
+      <a href="/TextEditor">TextEditor</a> */}
+      {/* </header> */}
       <main>
         <Outlet/>
       </main>
