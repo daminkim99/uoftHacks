@@ -18,6 +18,7 @@ const TextEditor = () => {
 
         if (selectedText){
             setSelectedText(selectedText);
+            saveContentToServer(selectedText);
             console.log(selectedText);
         }
     }
@@ -60,7 +61,7 @@ const TextEditor = () => {
 
     const saveContentToServer = async (value) => {
         try {
-            const response = await axios.post("http://localhost:5000/save-json", {
+            const response = await axios.post("http://127.0.0.1:8001/extract_keywords", {
                 text: value,
             });
 

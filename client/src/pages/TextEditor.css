@@ -73,7 +73,7 @@
     content: '';
     position: absolute;
     width: 30vw;
-    height: 85vh;
+    height: 90vh;
     background: var(--background-gradient);
     filter: blur(1.4px);
     border-radius: 40px;
@@ -86,7 +86,6 @@
     width:100%;
     display:flex;
     flex-direction:column;
-   
 }
 
 .rectangle-separator {
