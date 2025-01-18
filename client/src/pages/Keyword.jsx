@@ -30,7 +30,7 @@ function Keyword() {
     const navigate = useNavigate()
     const handleClick = async() => {
         try {
-            await axios.post("http://127.0.0.1:8000/save-keywords/", { keywords });
+            await axios.post("http://127.0.0.1:8001/save-keywords/", { keywords });
             console.log("Keywords saved successfully!");
         } catch (error) {
             console.error("Error saving keywords:", error);

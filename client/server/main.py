@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 import json
 
 app = FastAPI()
@@ -7,6 +9,7 @@ from bert import keyword_pull_article, extract_keywords, NER_with_SciBERT
 
 class TextInput(BaseModel):
     text: str
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Replace "*" with your frontend's URL in production
@@ -20,7 +23,15 @@ async def save_keywords(request: Request):
     with open("keywords.json", "w") as f:
         json.dump(data, f)
     return {"message": "Keywords saved successfully!"}
+
 @app.post("/extract_keywords")
 def extract_keywords_endpoint(input: TextInput):
     keywords = NER_with_SciBERT(input.text)
     return {"keywords": keywords}
+
+@app.get("/")
+async def get_data():
+    # Load data from a JSON file
+    with open("data.json") as json_file:
+        data = json.load(json_file)
+    return JSONResponse(content=data)

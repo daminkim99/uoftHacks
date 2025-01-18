@@ -8,6 +8,7 @@ import requests
 from gensim.parsing.preprocessing import STOPWORDS  # Added Gensim's stopwords
 import spacy
 import torch.nn.functional as F
+import json
 
 # Initialize WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
@@ -40,6 +41,7 @@ def preprocess_text(text: str) -> str:
     # Reconstruct the text
     preprocessed_text = ' '.join(lemmatized_tokens)
     return preprocessed_text
+
 def NER(text: str):
     """
     Apply NER to identify research-related entities
@@ -49,6 +51,7 @@ def NER(text: str):
     research_entities = [ent.text for ent in doc.ents]
     unique_entities = list(set(research_entities))
     return unique_entities
+
 def extract_keywords(text: str):
     """
     Extract top 10 keywords from the preprocessed text using SciBERT's attention weights.
@@ -101,6 +104,7 @@ def compute_entity_similarity(text: str, entity: str):
     # Compute cosine similarity
     cosine_sim = F.cosine_similarity(cls_text, cls_entity).item()
     return cosine_sim
+
 def NER_with_SciBERT(text: str, similarity_threshold: float = 0.55):
     """
     Apply NER to identify research-related entities and validate them using SciBERT similarity.
