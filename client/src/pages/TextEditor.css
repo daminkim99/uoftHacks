@@ -8,7 +8,7 @@
 
 
 .textbox {
-    size:60vw;
+    width: 90%;
     padding:5%;
     resize:none;
     border: 5px solid #F6F2FF;
@@ -30,8 +30,8 @@
 }
 .textbox::placeholder {
     color: #635878;; /* Change the color of the placeholder text */
-    font-size: 20px; /* Change the font size */
-    font-family: Arial, sans-serif; /* Change the font family */
+    font-size: 15px; /* Change the font size */
+    font-family: Inter, sans-serif; /* Change the font family */
 }
 
 .container-text {
@@ -42,6 +42,7 @@
 
 .text-editor {
     flex: 2;
+    display: flex;
 }
 
 .match-container {
@@ -49,10 +50,11 @@
 }
 
 .match-rectangle {
-    width: 351px;
-    height: 808px;
+    width: 108%;
+    height: 95%;
     flex-shrink: 0;
     border-radius: 40px;
+    position: relative;
 }
 
 .match-rectangle::before {
@@ -71,19 +73,26 @@
 }
 
 .padding-rectangle {
-    padding: 3%;
+    padding: 2%;
     height: 100%;
     flex-shrink: 0;
 }
 
+.rectangle-separator {
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+
 .smaller-match-rectangle {
     z-index: 1;
-    width: 310px;
+    /* width: 310px; */
     height: 45%;
     flex-shrink: 0;
     border-radius: 20px;
     background: #FFF;
-    margin: 10px auto;
+    margin-left: 2px;
+    margin-top: 10px;
+    /* margin: 10px auto; */
 }
 
 .science-title {
@@ -127,7 +136,7 @@
     display: flex;
     position: relative;
     overflow: hidden;
-    width: 100%;
+    /* width: 90%; */
     height: 75%;
     max-height: 100%;
     margin: 0 5%;
@@ -140,8 +149,6 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.255px;
-    overflow: hidden;
-    position: relative;
     mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }

@@ -18,12 +18,12 @@ const TextEditor = () => {
             <div>
                 <div className='container-text'>
                     <div className='text-editor'>
-                        {/* <h2 className='title'>Text Editor</h2> */}
+                        {/* <h2 className='header'>Add your text her</h2> */}
                         <textarea 
                         className="textbox"
                         value = {body}
                         onChange={handleBody}
-                        placeholder="Write text"
+                        placeholder="Add your text here"
                         rows="30"
                         cols="80"
                         />
@@ -36,7 +36,7 @@ const TextEditor = () => {
                                 <div className='smaller-match-rectangle'>
                                     <h3 className='science-title'>Scientific Title</h3>
                                     <h4 className='authors'>Author1, Author2</h4>
-                                    <p className='abstract'>Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. .</p>
+                                    <p className='abstract'>Abstract. Abstract. Abstract. aa. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. .</p>
                                 </div>
 
                                 <hr className="rectangle-separator" />
