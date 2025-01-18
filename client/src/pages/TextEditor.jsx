@@ -16,17 +16,42 @@ const TextEditor = () => {
 
     return (
             <div>
-            <h2>Text Editor</h2>
-            <textarea 
-            className="textbox"
-            value = {body}
-            onChange={handleBody}
-            placeholder="Write text"
-            rows="30"
-            cols="80"
+                <div className='container-text'>
+                    <div className='text-editor'>
+                        {/* <h2 className='title'>Text Editor</h2> */}
+                        <textarea 
+                        className="textbox"
+                        value = {body}
+                        onChange={handleBody}
+                        placeholder="Write text"
+                        rows="30"
+                        cols="80"
+                        />
+                    </div>
+                    
+                    <div className='match-container'>
+                        <h2 className='match-title'>Matches</h2>
+                        <div className='match-rectangle'>
+                            <div className='padding-rectangle'>
+                                <div className='smaller-match-rectangle'>
+                                    <h3 className='science-title'>Scientific Title</h3>
+                                    <h4 className='authors'>Author1, Author2</h4>
+                                    <p className='abstract'>Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. .</p>
+                                </div>
+
+                                <hr className="rectangle-separator" />
+
+                                <div className='smaller-match-rectangle'>
+                                    <h3 className='science-title'>Scientific Title</h3>
+                                    <h4 className='authors'>Author1, Author2</h4>
+                                    <p className='abstract'>Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             
-            />
-            
+                </div>
+               
             </div>
         )
     }
