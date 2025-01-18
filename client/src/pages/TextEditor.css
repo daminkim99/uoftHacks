@@ -67,6 +67,7 @@
     height: 90%;
     border-radius: 40px;
     position: relative;
+    background: var(--background-gradient);
 }
 
 .match-rectangle::before {
@@ -74,7 +75,8 @@
     position: absolute;
     width: 25vw;
     height: 85vh;
-    background: linear-gradient(180deg, #BFC8FF 0%, #f7a3a3 100%);
+    /* background: linear-gradient(180deg, #BFC8FF 0%, #f7a3a3 100%); */
+    background: var(--background-gradient);
     filter: blur(1.4px);
     border-radius: 40px;
     z-index: -1;
@@ -118,7 +120,7 @@
     display: flex;
     margin-left: 5%;
     margin-top: 5%;
-    width: 100%;
+    width: 95%;
     height: 10%;
     margin-bottom: 0;
     flex-direction: column;
@@ -126,7 +128,7 @@
     flex-shrink: 0;
     color: #000;
     font-family: Inter;
-    font-size: 20px;
+    font-size: 0.8vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;

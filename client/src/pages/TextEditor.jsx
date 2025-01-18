@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './TextEditor.css'
-import data from '../../server/result.json'
+import rawData from '../../server/data.json'
 import { motion } from "motion/react"
 
 const TextEditor = () => {
@@ -19,9 +19,9 @@ const TextEditor = () => {
     };
 
     // Function to calculate the gradient color based on similarity
-    const calculateGradient = (similarity1, similarity2) => {
-        const color1 = interpolateColor(similarity1); // Color for the first paper
-        const color2 = interpolateColor(similarity2); // Color for the second paper
+    const calculateGradient = (sentiment1, sentiment2) => {
+        const color1 = interpolateColor(sentiment1); // Color for the first paper
+        const color2 = interpolateColor(sentiment2); // Color for the second paper
         return `linear-gradient(180deg, ${color1} 0%, ${color2} 100%)`;
 
     };
@@ -33,13 +33,24 @@ const TextEditor = () => {
     }
 
     useEffect(() => {
-        const firstPaperScore = data[0].matchScore || 0; 
-        const secondPaperScore = data[1].matchScore || 0;
+        const { sentiments } = rawData;
+        if (sentiments && sentiments.length >= 2) {
+            const firstPaperScore = sentiments[0] || 0;
+            const secondPaperScore = sentiments[1] || 0;
 
-        // Calculate the gradient based on the scores of the first and second papers
-        const gradient = calculateGradient(firstPaperScore, secondPaperScore);
-        setBackground(gradient);
-    }, [data]);
+            const gradient = calculateGradient(firstPaperScore, secondPaperScore);
+            setBackground(gradient);
+        }
+    }, []);
+
+    const combinedData = rawData.titles.map((title, index) => ({
+        title,
+        author: rawData.authors[index],
+        url: rawData.urls[index],
+        abstract: rawData.abstracts[index],
+    }));
+
+
 
     return (
             <div className="parent">
@@ -54,13 +65,13 @@ const TextEditor = () => {
              </div>
              <div className='match-container'>
                     <h2 className='match-title'>Matches</h2>
-                        <div className='match-rectangle'>
-                            <div className='padding-rectangle'>
-                                {data.map((paper, index) => (
+                        <div className='match-rectangle' style={{ '--background-gradient': background }} >
+                            <div className='padding-rectangle' >
+                                {combinedData.map((paper, index) => (
                                     <motion.a
                                         className='smaller-match-rectangle' 
                                         key={index}
-                                        href={paper.link}
+                                        href={paper.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         initial={{ opacity: 0, y: 50 }}
@@ -72,7 +83,7 @@ const TextEditor = () => {
                                         }}
                                         >
                                         <h3 className='science-title'>{paper.title}</h3>
-                                        <h4 className='authors'>{paper.authors}</h4>
+                                        <h4 className='authors'>{paper.author}</h4>
                                         <p className='abstract'>{paper.abstract}</p>
                                     </motion.a>
                                 ))}
