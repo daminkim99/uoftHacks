@@ -6,7 +6,6 @@
     margin-top: 0;
 }
 
-
 .textbox {
     width: 90%;
     height:100%;
@@ -62,7 +61,6 @@
     flex-direction:row;
     width:100vw;
     height:100vh;
-   
 }
 
 .match-rectangle {
