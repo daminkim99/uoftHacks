@@ -24,7 +24,7 @@ function Keyword() {
                     value={text}
                     onChange={handleChange}
                 />
-                <button>Enter</button>
+                <button onClick={handleClick}>Enter</button>
             </div>
         </div>
     );
