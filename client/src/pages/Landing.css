@@ -56,9 +56,11 @@
 	line-height: normal;
 	letter-spacing: -0.51px;
 	cursor: pointer;
+	border: none;
 	transition: box-shadow 0.3s ease;
 }
 
 .landing-button:hover {
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+	background-color: #7b669f;
+	box-shadow: 0 5px 15px rgba(68, 57, 109, 0.3) !important; 
 }
