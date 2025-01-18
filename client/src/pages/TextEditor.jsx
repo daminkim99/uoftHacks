@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import './TextEditor.css'
 import rawData from '../../server/data.json'
 import { motion } from "motion/react"
-import { saveAs } from "file-saver";
 import axios from 'axios';
 
 const TextEditor = () => {
@@ -19,6 +18,7 @@ const TextEditor = () => {
 
         if (selectedText){
             setSelectedText(selectedText);
+            saveContentToServer(selectedText);
             console.log(selectedText);
         }
     }
