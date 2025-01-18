@@ -39,7 +39,13 @@
 		0 19px 10px rgb(83, 80, 77);
 }
 
-
+main {
+	display: grid;
+	place-items: center; 
+	min-height: 100vh;   
+	margin-right: 20vw;
+  
+}
 .sub-sub {
 	display: flex;
 	width: 60%;
