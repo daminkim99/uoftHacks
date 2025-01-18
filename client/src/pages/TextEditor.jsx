@@ -15,21 +15,19 @@ const TextEditor = () => {
     }
 
     return (
-            <div>
-                <div className='container-text'>
-                    <div className='text-editor'>
-                        {/* <h2 className='header'>Add your text her</h2> */}
-                        <textarea 
-                        className="textbox"
-                        value = {body}
-                        onChange={handleBody}
-                        placeholder="Add your text here"
-                        rows="30"
-                        cols="80"
-                        />
-                    </div>
-                    
-                    <div className='match-container'>
+            <div className="parent">
+            
+             <div className='text-editor'>
+                       
+                       <textarea 
+                       className="textbox"
+                       value = {body}
+                       onChange={handleBody}
+                       placeholder="Add your text here"
+                       
+                       />
+             </div>
+             <div className='match-container'>
                         <h2 className='match-title'>Matches</h2>
                         <div className='match-rectangle'>
                             <div className='padding-rectangle'>
@@ -48,10 +46,7 @@ const TextEditor = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-            
                 </div>
-               
             </div>
         )
     }
