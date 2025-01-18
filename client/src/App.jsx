@@ -7,9 +7,7 @@ function App() {
   return(
     <div>
       <header>
-      <a href="/">MainPage</a> |
-      <a href="/keyword">Keyword</a> |
-      <a href="/TextEditor">TextEditor</a>
+      <a href="/">Logo</a> |
       </header>
       <main>
         <Outlet/>
