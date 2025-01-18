@@ -4,7 +4,7 @@
 	font-family: 'Inter', sans-serif;
 }
 
-h1 {
+.keywords-title {
 	color: #000;
 	font-family: Inter;
 	width: 100%;
@@ -16,7 +16,7 @@ h1 {
 	letter-spacing: -0.799px;
 }
 
-h2 {
+.keywords-sub {
 	display: flex;
 	width: 100%;
 	height: 30%;
@@ -40,7 +40,7 @@ h2 {
     gap: 20px;
 }
 
-input {
+.input-keywords {
 	width: 705px;
 	height: 50px;
 	padding: 0 20px;
@@ -52,19 +52,20 @@ input {
 	color: black;
 }
 
-button {
-	color: white;
-	background: rgb(49, 34, 87);
+.enter-keywords {
+	color: black;
+	background: #A58FCC !important;
 	transition: box-shadow 0.3s ease;
-	outline: none;
-	border: none;
+	outline: none !important;
+	border: none !important;
 	-webkit-tap-highlight-color: transparent;
     -webkit-focus-ring-color: transparent;
 	appearance: none !important;
+	transition: background-color 0.3s ease !important;
 
 }
 
-button:focus, button:active, button::-moz-focus-inner, button:focus-visible, button:focus-within {
+.enter-keywords:focus, .enter-keywords:active, .enter-keywords::-moz-focus-inner, .enter-keywords:focus-visible, .enter-keywords:focus-within {
 	outline: none !important;
 	box-shadow: none !important;
 	box-shadow: none !important;
@@ -72,8 +73,10 @@ button:focus, button:active, button::-moz-focus-inner, button:focus-visible, but
 	-moz-box-shadow: none !important;
 }
 
-button:hover {
-	background-color: #b5a1d8;
+.enter-keywords:hover {
+	background-color: #7b669f !important;
+	outline: none;
+	border: none;
 }
 
 
