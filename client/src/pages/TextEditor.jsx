@@ -10,6 +10,7 @@ const TextEditor = () => {
     const [typingTimeout, setTypingTimeout] = useState(null);
 
     const [selectedText, setSelectedText] = useState('');
+    const [yesData, setData] = useState(false);
 
     const handleSelection = (e) => {
         const start = e.target.selectionStart;
@@ -23,8 +24,8 @@ const TextEditor = () => {
         }
     }
 
-    const redStart = 191, greenStart = 200, blueStart = 255; // Red: RGB(255, 0, 0)
-    const redEnd = 247, greenEnd = 163, blueEnd = 163; // Blue: RGB(0, 0, 255)
+    const redStart = 191, greenStart = 200, blueStart = 255; //blue top
+    const redEnd = 247, greenEnd = 163, blueEnd = 163; //red top
 
 
     const interpolateColor = (value) => {
@@ -38,13 +39,14 @@ const TextEditor = () => {
     const calculateGradient = (sentiment1, sentiment2) => {
         const color1 = interpolateColor(sentiment1); // Color for the first paper
         const color2 = interpolateColor(sentiment2); // Color for the second paper
-        return `linear-gradient(180deg, ${color1} 0%, ${color2} 100%)`;
+        return `linear-gradient(0deg, ${color1} 0%, ${color2} 100%)`;
 
     };
     
     const handleBody= e => {
         const value = e.target.value; 
         setBody(value);
+        
 
         if (typingTimeout) {
             clearTimeout(typingTimeout);
@@ -55,7 +57,6 @@ const TextEditor = () => {
         }, 2000);
 
         setTypingTimeout(timeout);
-
         console.log(value);
     }
 
@@ -67,6 +68,9 @@ const TextEditor = () => {
 
             if (response.status >= 200 && response.status < 300) {
                 console.log("Content saved successfully");
+                if (yesData) {
+                    setData(true);
+                }
             } else {
                 throw new Error("Failed to save content");
             }
@@ -75,7 +79,6 @@ const TextEditor = () => {
             console.error("Error saving content:", error);
         }
     };
-
 
 
     useEffect(() => {
@@ -96,6 +99,23 @@ const TextEditor = () => {
         abstract: rawData.abstracts[index],
     }));
 
+    // const combinedData = rawData.titles.map((title, index) => {
+    //     // Get the authors for the current paper
+    //     const authors = rawData.authors[index];
+    
+    //     // Format the authors to show up to three and append "et al." if there are more
+    //     const formattedAuthors = authors.length > 3 
+    //         ? `${authors.slice(0, 3).join(', ')}, et al.` 
+    //         : authors.join(', ');
+    
+    //     return {
+    //         title,
+    //         author: formattedAuthors, // Use formatted authors here
+    //         url: rawData.urls[index],
+    //         abstract: rawData.abstracts[index],
+    //     };
+    // });
+
     return (
             <div className="parent">
              <div className='text-editor'> 
@@ -111,7 +131,7 @@ const TextEditor = () => {
              <div className='match-container'>
                     <h2 className='match-title'>Matches</h2>
                         <div className='match-rectangle' style={{ '--background-gradient': background }} >
-                            <div className='padding-rectangle' >
+                            {yesData && <div className='padding-rectangle' >
                                 {combinedData.map((paper, index) => (
                                     <motion.a
                                         className='smaller-match-rectangle' 
@@ -140,7 +160,7 @@ const TextEditor = () => {
                                     <h4 className='authors'>Author1, Author2</h4>
                                     <p className='abstract'>Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. </p>
                                 </div> */}
-                            </div>
+                            </div>}
                         </div>
                 </div>
             </div>
