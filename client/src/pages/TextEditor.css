@@ -8,9 +8,30 @@
 
 
 .textbox {
+    size:60vw;
+    padding:5%;
+    resize:none;
     border: 5px solid #F6F2FF;
     background-color:#F6F2FF;
     border-radius:15px;
+    font-size:15px;
+    
+}
+
+.textcover{
+    margin: 5%; 
+}
+
+.textbox:focus{
+     /* border-color: #635878; */
+     outline: none;
+     
+
+}
+.textbox::placeholder {
+    color: #635878;; /* Change the color of the placeholder text */
+    font-size: 20px; /* Change the font size */
+    font-family: Arial, sans-serif; /* Change the font family */
 }
 
 .container-text {
