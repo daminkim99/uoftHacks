@@ -9,6 +9,8 @@ from gensim.parsing.preprocessing import STOPWORDS  # Added Gensim's stopwords
 import spacy
 import torch.nn.functional as F
 import json
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Initialize WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
@@ -104,8 +106,7 @@ def compute_entity_similarity(text: str, entity: str):
     # Compute cosine similarity
     cosine_sim = F.cosine_similarity(cls_text, cls_entity).item()
     return cosine_sim
-
-def NER_with_SciBERT(text: str, similarity_threshold: float = 0.55):
+def NER_with_SciBERT(text: str, similarity_threshold: float = 0.56):
     """
     Apply NER to identify research-related entities and validate them using SciBERT similarity.
     Returns a list of unique, contextually relevant entities.
@@ -137,11 +138,33 @@ def NER_with_SciBERT(text: str, similarity_threshold: float = 0.55):
     
     return list(unique_validated_entities.values())
 
-def keyword_pull_article(keywords):
-    # Pull from Semantic Scholar API using keywords to search for articles
-    query = "+".join(keywords)  # Join keywords with "+"
+def keyword_pull_article(
+    string,
+    keywords,
+    similarity,
+    similarity_threshold: float = 0.1,  
+    sentiment_weight: float = 0.6,     
+    similarity_cap: float = 0.9445,
+    top_k: int = 120,                    
+    string_similarity_threshold: float = 0.1,  
+):
+    # Sort keywords by their corresponding similarity scores in descending order
+    sorted_keywords = [kw for _, kw in sorted(zip(similarity, keywords), reverse=True)]
+    
+    # Determine the split index at roughly one-third of the keywords
+    split_idx = max(1, len(sorted_keywords) // 5)
+    
+    # Join the first third of the keywords with '+'
+    primary_keywords = "+".join([k+"~5" for k in sorted_keywords[:split_idx]])
+    
+    # Join the remaining keywords with '|'
+    secondary_keywords = "|".join([k+"~5" for k in sorted_keywords[split_idx:]]) if len(sorted_keywords) > split_idx else ""
+    
+    # Construct the final query
+    query = f"{primary_keywords}+({secondary_keywords})" if secondary_keywords else primary_keywords
+
     url = "https://api.semanticscholar.org/graph/v1/paper/search/bulk"
-    querystring = {"query": query, "fields": "title,abstract"}
+    querystring = {"query": query, "fields": "title,abstract,url,authors,url"}
     response = requests.request("GET", url, params=querystring)
     response = response.json()
     
@@ -149,9 +172,18 @@ def keyword_pull_article(keywords):
     articles = response.get('data', [])
     titles = []
     abstracts = []
-    for article in articles:
+    authors_1 = []
+    urls = []
+    for i,article in enumerate(articles):
         titles.append(article.get('title'))
         abstracts.append(article.get('abstract'))
+        authors = article.get('authors')
+        authors_1.append([])
+        for j, author in enumerate(authors):
+            if author.get('name') is not None:
+                authors_1[i].append(author.get('name'))
+        urls.append(article.get('url'))
+
     
     if not abstracts:
         return {"keywords": keywords,"results": dict(response)}
@@ -160,21 +192,99 @@ def keyword_pull_article(keywords):
     valid_indices = [i for i, abstract in enumerate(abstracts) if isinstance(abstract, str) and len(abstract) > 0]
     abstracts = [abstracts[i] for i in valid_indices]
     titles = [titles[i] for i in valid_indices]
+    authors = [authors_1[i] for i in valid_indices]
+    urls = [urls[i] for i in valid_indices]
+
+    # Remove duplicate abstracts and their corresponding titles
+    unique_abstracts = list(dict.fromkeys(abstracts))
+    unique_titles = []
+    seen = set()
+    for i, abstract in enumerate(abstracts):
+        if abstract in unique_abstracts and abstract not in seen:
+            unique_titles.append(titles[i])
+            seen.add(abstract)
     
-    # Analyze sentiment of each abstract
-    sentiments = [sia.polarity_scores(abstract) for abstract in abstracts]
+    abstracts = unique_abstracts
+    titles = unique_titles
+    
+    # Vectorize all abstracts
+    vectorizer = TfidfVectorizer()
+    vectors = vectorizer.fit_transform(abstracts)
+    similarity_matrix = cosine_similarity(vectors)
+    
+    # Precompute sentiment scores for all abstracts
+    sentiment_scores = [sia.polarity_scores(abstract)['compound'] for abstract in abstracts]
+    
+    # Vectorize the 'string' for comparison
+    string_vec = vectorizer.transform([string])
+    string_similarities = cosine_similarity(string_vec, vectors).squeeze()
+    
+    # Identify the optimal pair based on sentiment difference
+    import numpy as np
+    np.fill_diagonal(similarity_matrix, 0)  # Exclude self-similarity
+    
+    number_of_abstracts = len(abstracts)
+    number_of_pairs = number_of_abstracts * (number_of_abstracts - 1) // 2
+    
+    adjusted_top_k = min(top_k, number_of_pairs) if number_of_pairs > 0 else 0
+    
+    if adjusted_top_k == 0:
+        return {"error": "Not enough unique pairs of abstracts to perform analysis."+str(len(abstracts))}
+    
+    # Flatten the similarity matrix and get indices of the top_k most similar pairs
+    flat_indices = np.argpartition(similarity_matrix.flatten(), -adjusted_top_k)[-adjusted_top_k:]
+    top_pairs = np.array(np.unravel_index(flat_indices, similarity_matrix.shape)).T
+    
+    best_sentiment_gap = -float('inf')
+    best_pair = (None, None)
+    best_similarity = 0
+    best_sentiments = (None, None)
+    
+    # Convert top_pairs to a list for easier random selection
+    top_pairs_list = list(top_pairs)
+    import random
+    
+    for pair in top_pairs_list:
+        i, j = pair
+        sim = similarity_matrix[i, j]
+        avg_string_similarity = (string_similarities[i] + string_similarities[j]) / 2
+        if sim < similarity_threshold or sim > similarity_cap:
+            continue
+        if avg_string_similarity < string_similarity_threshold:
+            continue
+        gap = abs(sentiment_scores[i] - sentiment_scores[j])
+        combined_score = sentiment_weight * gap + (1 - sentiment_weight) * avg_string_similarity
+        if combined_score > best_sentiment_gap:
+            best_sentiment_gap = combined_score
+            best_pair = pair
+            best_similarity = sim
+            best_sentiments = (
+                sentiment_scores[i],
+                sentiment_scores[j]
+            )
+    
+    if len(abstracts) < 2:
+        return {"error": "Not enough valid abstracts found"}
+    
+    # Fix the array comparison
+    if (best_pair[0] is None and best_pair[1] is None) or best_sentiment_gap < 0:
+        return {"error": "No suitable pair of abstracts found based on the given thresholds."}
 
-    if not sentiments:
-        return {"error": "Sentiment analysis failed"}
+    top_index, bot_index = best_pair
 
-    # Return the title and abstract and link of the two extremes in sentiment
-    bot = min(sentiments, key=lambda x: x['compound'])
-    top = max(sentiments, key=lambda x: x['compound'])
+    if best_similarity > similarity_cap:
+        best_similarity = similarity_cap
 
-    top_index = sentiments.index(top)
-    bot_index = sentiments.index(bot) 
-    return {"titles": [titles[top_index], titles[bot_index]], "abstracts": [abstracts[top_index], abstracts[bot_index]], "sentiments": [top, bot]}
+    similarity_to_string_top = string_similarities[top_index]
+    similarity_to_string_bot = string_similarities[bot_index]
 
-
-
+    return {
+        "titles": [titles[top_index], titles[bot_index]],
+        "authors": [authors[top_index], authors[bot_index]],
+        "urls": [urls[top_index], urls[bot_index]],
+        "abstracts": [abstracts[top_index], abstracts[bot_index]],
+        "sentiments": best_sentiments,
+        "similarity": best_similarity,
+        "similarity_to_string": [similarity_to_string_top, similarity_to_string_bot]
+    }
 

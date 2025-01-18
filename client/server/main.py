@@ -28,5 +28,7 @@ async def save_keywords(request: Request):
 @app.post("/extract_keywords")
 def extract_keywords_endpoint(input: TextInput):
     keywords = NER_with_SciBERT(input.text)
-    return(keyword_pull_article(keywords))
+    keywords_list = [k["keyword"] for k in keywords]
+    similarities  = [k["similarity"] for k in keywords]
+    return(keyword_pull_article(input.text,keywords_list,similarities))
 

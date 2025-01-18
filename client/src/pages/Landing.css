@@ -5,9 +5,9 @@
 }
 
 .sub {
-	display: flex;
+	/* display: flex; */
 	width: 75%;
-	margin-left: 11%;
+	margin-left: 15%;
 	margin-bottom: 0;
 	flex-direction: column;
 	flex-shrink: 0;
@@ -18,12 +18,32 @@
 	font-weight: 700;
 	line-height: normal;
 	letter-spacing: -1.36px;
+	
 }
+/* .every{
+	background: radial-gradient(circle ,rgb(170, 178, 182),rgb(180, 107, 216));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	
+	
+} */
+.every {
+	text-shadow: 0 5px 10px #bbb,
+		0 2px 0 #999, 
+		0 11px 0 #888, 
+		0 4px 0 #777, 
+		0 5px 0 #666, 
+		0 5px 0 #555, 
+		0 15px 0 #444, 
+		0 1px 0 #333, 
+		0 19px 10px rgb(83, 80, 77);
+}
+
 
 .sub-sub {
 	display: flex;
 	width: 60%;
-	margin-left: 12.5%;
+	margin-left: 15.5%;
 	margin-top: 1%;
 	flex-direction: column;
 	justify-content: center;
@@ -39,9 +59,9 @@
 
 .landing-button {
 	display: flex;
-	width: 13.5%;
+	width: 15%;
 	height: 15%;
-	margin-left: 12.5%;
+	margin-left: 15.5%;
 	flex-direction: column;
 	justify-content: center;
 	flex-shrink: 0;
@@ -73,4 +93,8 @@
 		height: 85%;
 		object-fit: contain;
 		z-index: -1; 
+}
+
+.container{
+	margin-left:5vw;
 }
