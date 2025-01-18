@@ -3,6 +3,7 @@ import ReactQuill from "react-quill"
 import './TextEditor.css'
 import "../../node_modules/react-quill/dist/quill.snow.css"
 import data from '../../server/result.json'
+import { motion } from "motion/react"
 
 const TextEditor = () => {
     const [body,setBody] = useState("")
@@ -30,17 +31,25 @@ const TextEditor = () => {
                         <div className='match-rectangle'>
                             <div className='padding-rectangle'>
                                 {data.map((paper, index) => (
-                                    <a className='smaller-match-rectangle' 
+                                    <motion.a
+                                        className='smaller-match-rectangle' 
                                         key={index}
                                         href={paper.link}
                                         target="_blank"
-                                        rel="noopener noreferrer">
+                                        rel="noopener noreferrer"
+                                        initial={{ opacity: 0, y: 50 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{
+                                            duration: 0.8,
+                                            delay: index * 0.2,
+                                            ease: "easeOut",
+                                        }}
+                                        >
                                         <h3 className='science-title'>{paper.title}</h3>
                                         <h4 className='authors'>{paper.authors}</h4>
                                         <p className='abstract'>{paper.abstract}</p>
-                                    </a>
+                                    </motion.a>
                                 ))}
-                                
 
                                 {/* <hr className="rectangle-separator" /> */}
 
