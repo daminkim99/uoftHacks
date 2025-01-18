@@ -16,19 +16,17 @@ const TextEditor = () => {
 
     return (
             <div className="parent">
-            
-             <div className='text-editor'>
-                       
+             <div className='text-editor'> 
+                <a href="/Keyword">Go Back</a>
                        <textarea 
                        className="textbox"
                        value = {body}
                        onChange={handleBody}
                        placeholder="Add your text here"
-                       
                        />
              </div>
              <div className='match-container'>
-                        <h2 className='match-title'>Matches</h2>
+                    <h2 className='match-title'>Matches</h2>
                         <div className='match-rectangle'>
                             <div className='padding-rectangle'>
                                 <div className='smaller-match-rectangle'>
