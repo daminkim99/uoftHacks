@@ -115,6 +115,11 @@ def NER_with_SciBERT(text: str, similarity_threshold: float = 0.56):
     - text: The input text to process.
     - similarity_threshold: Minimum cosine similarity score to retain an entity.
     """
+    first_sentences = False
+    if text.count(".") < 2:
+        first_sentences = True
+    
+        
     # Extract entities using spaCy NER
     #preprocess the text
     text = preprocess_text(text)
@@ -138,24 +143,23 @@ def NER_with_SciBERT(text: str, similarity_threshold: float = 0.56):
         if key not in unique_validated_entities or ve["similarity"] > unique_validated_entities[key]["similarity"]:
             unique_validated_entities[key] = ve
     
-    return list(unique_validated_entities.values())
+    return (list(unique_validated_entities.values()),first_sentences)
 
 def keyword_pull_article(
     string,
-    #first_sentences,
+    first_sentences,
     keywords,
     similarity,
     similarity_threshold: float = 0.3,  
     sentiment_weight: float = 0.2,     
     similarity_cap: float = 0.9445,
-    top_k: int = 140,                    
+    top_k: int = 150,                    
     string_similarity_threshold: float = 0.09):  
-    #if first_sentences:
-    # Preprocess the first sentences
-       # sorted_keywords = first_sentences(string, first_sentences)
-    #else:
+    if first_sentences:
+       sorted_keywords = first_sentences(string, first_sentences)
+    else:
     # Sort keywords by their corresponding similarity scores in descending order
-    sorted_keywords = [kw for _, kw in sorted(zip(similarity, keywords), reverse=True)]
+        sorted_keywords = [kw for _, kw in sorted(zip(similarity, keywords), reverse=True)]
     # Determine the split index at roughly one-third of the keywords
     split_idx = max(1, len(sorted_keywords) // 6)
     
@@ -303,6 +307,7 @@ def keyword_pull_article(
     #make json nice to look at when export
     res = json.dumps(res, indent=4)
     res = json.loads(res)
+    print(res)
     with open("data.json", "w") as f:
         json.dump(res, f, indent=4)
     return {"status": "Oliver's Keywords saved successfully!"}
