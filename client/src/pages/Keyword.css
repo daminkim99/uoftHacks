@@ -53,10 +53,11 @@ input {
 }
 
 button {
+	color: white;
+	background: rgb(49, 34, 87);
 	transition: box-shadow 0.3s ease;
 	outline: none;
 	border: none;
-	forced-color-adjust: none;
 	-webkit-tap-highlight-color: transparent;
     -webkit-focus-ring-color: transparent;
 	appearance: none !important;
