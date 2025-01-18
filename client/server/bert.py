@@ -149,7 +149,7 @@ def keyword_pull_article(
     sentiment_weight: float = 0.2,     
     similarity_cap: float = 0.9445,
     top_k: int = 140,                    
-    string_similarity_threshold: float = 0.1):  
+    string_similarity_threshold: float = 0.09):  
     #if first_sentences:
     # Preprocess the first sentences
        # sorted_keywords = first_sentences(string, first_sentences)
@@ -157,7 +157,7 @@ def keyword_pull_article(
     # Sort keywords by their corresponding similarity scores in descending order
     sorted_keywords = [kw for _, kw in sorted(zip(similarity, keywords), reverse=True)]
     # Determine the split index at roughly one-third of the keywords
-    split_idx = max(1, len(sorted_keywords) // 7)
+    split_idx = max(1, len(sorted_keywords) // 6)
     
     # Join the first third of the keywords with '+'
     primary_keywords = "+".join([k+"~5" for k in sorted_keywords[:split_idx]])
@@ -200,24 +200,25 @@ def keyword_pull_article(
     authors = [authors_1[i] for i in valid_indices]
     urls = [urls[i] for i in valid_indices]
 
-    # Remove duplicate abstracts and their corresponding titles
-    unique_abstracts = list(dict.fromkeys(abstracts))
+    # Remove duplicate abstracts and their corresponding titles, authors, and urls
+    unique_abstracts = []
     unique_titles = []
     unique_authors = []
     unique_urls = []
     seen = set()
     for i, abstract in enumerate(abstracts):
-        if abstract in unique_abstracts and abstract not in seen:
-            unique_titles.append(titles[i])
+        if abstract not in seen:
             seen.add(abstract)
+            unique_abstracts.append(abstract)
+            unique_titles.append(titles[i])
             unique_authors.append(authors[i])
             unique_urls.append(urls[i])
 
-            
-    
     abstracts = unique_abstracts
     titles = unique_titles
-    
+    authors = unique_authors
+    urls = unique_urls
+
     # Vectorize all abstracts
     vectorizer = TfidfVectorizer()
     vectors = vectorizer.fit_transform(abstracts)
@@ -298,7 +299,7 @@ def keyword_pull_article(
         "similarity": best_similarity,
         "similarity_to_string": [similarity_to_string_top, similarity_to_string_bot]
     }
-    #save the jason file
+    #save the json file
     #make json nice to look at when export
     res = json.dumps(res, indent=4)
     res = json.loads(res)
@@ -323,4 +324,3 @@ def first_sentences(keywords: str, doc_level,cut_off: float = 0.5):
     else:
         return keywords
 
-    
