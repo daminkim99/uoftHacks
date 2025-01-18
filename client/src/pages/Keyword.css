@@ -9,7 +9,7 @@
 	font-family: Inter;
 	width: 100%;
 	margin-left: 10%;
-	font-size: 35px !important;
+	font-size: 3vw !important;
 	font-style: normal;
 	font-weight: 700;
 	line-height: normal;
@@ -26,7 +26,7 @@
 	flex-shrink: 0;
 	color: #635878;
 	font-family: Inter;
-	font-size: 25px;
+	font-size: 1.5vw;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -35,22 +35,28 @@
 
 .input-container {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	margin-left: 10%;
     gap: 20px;
+	flex-wrap: wrap;
 }
 
 .input-keywords {
-	width: 705px;
-	height: 50px;
-	padding: 0 20px;
-	flex-shrink: 0;
-	border-radius: 20px;
-	background: #F6F2FF;
-	border: none;
-	outline: none;
-	color: black;
+    width: 705px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 20px;
+    background: #F6F2FF;
+    border: none;
+    outline: none;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    white-space: pre-wrap;
 }
+
 
 .enter-keywords {
 	color: black;
@@ -62,7 +68,7 @@
     -webkit-focus-ring-color: transparent;
 	appearance: none !important;
 	transition: background-color 0.3s ease !important;
-
+	font-size: 1.2vw;
 }
 
 .enter-keywords:focus, .enter-keywords:active, .enter-keywords::-moz-focus-inner, .enter-keywords:focus-visible, .enter-keywords:focus-within {
@@ -79,4 +85,55 @@
 	border: none;
 }
 
+.keywords-area {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #f6f2ff;
+    border-radius: 12px;
+    padding: 10px;
+    width: 60vw;
+    min-height: 50px;
+    border: 1px solid #d3d3d3;
+    box-sizing: border-box;
+}
 
+.keyword-bubble {
+    background-color: #5e4985;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 1vw;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.keyword-bubble button.delete-keyword { 
+	background: none; 
+	border: none; 
+	color: white; 
+	font-size: 1vw; 
+	cursor: pointer; 
+	line-height: 1; 
+	padding: 0; 
+}
+
+.keyword-bubble button.delete-keyword:hover { 
+	color: #ffcccc; 
+}
+
+.keyword-input { 
+	border: none; 
+	outline: none; 
+	font-size: 1vw; 
+	flex-grow: 1; 
+	padding: 20px; 
+	background: #F6F2FF; 
+	color: black; 
+	min-width: 120px; 
+}
+
+.keyword-input::placeholder { 
+	color: #aaa; 
+}
