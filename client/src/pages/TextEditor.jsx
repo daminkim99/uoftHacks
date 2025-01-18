@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import ReactQuill from "react-quill"
 import './TextEditor.css'
 import "../../node_modules/react-quill/dist/quill.snow.css"
-
+import data from '../../server/result.json'
 
 const TextEditor = () => {
     const [body,setBody] = useState("")
@@ -29,19 +29,26 @@ const TextEditor = () => {
                     <h2 className='match-title'>Matches</h2>
                         <div className='match-rectangle'>
                             <div className='padding-rectangle'>
-                                <div className='smaller-match-rectangle'>
-                                    <h3 className='science-title'>Scientific Title</h3>
-                                    <h4 className='authors'>Author1, Author2</h4>
-                                    <p className='abstract'>Abstract. Abstract. Abstract. aa. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. .</p>
-                                </div>
+                                {data.map((paper, index) => (
+                                    <a className='smaller-match-rectangle' 
+                                        key={index}
+                                        href={paper.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        <h3 className='science-title'>{paper.title}</h3>
+                                        <h4 className='authors'>{paper.authors}</h4>
+                                        <p className='abstract'>{paper.abstract}</p>
+                                    </a>
+                                ))}
+                                
 
-                                <hr className="rectangle-separator" />
+                                {/* <hr className="rectangle-separator" /> */}
 
-                                <div className='smaller-match-rectangle'>
+                                {/* <div className='smaller-match-rectangle'>
                                     <h3 className='science-title'>Scientific Title</h3>
                                     <h4 className='authors'>Author1, Author2</h4>
                                     <p className='abstract'>Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. </p>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                 </div>
