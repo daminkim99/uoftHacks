@@ -16,7 +16,8 @@ const TextEditor = () => {
 
     return (
             <div>
-            <h2>Text Editor</h2>
+            <h2 className="header">Insert text below:</h2>
+            <div className="textcover">
             <textarea 
             className="textbox"
             value = {body}
@@ -24,9 +25,8 @@ const TextEditor = () => {
             placeholder="Write text"
             rows="30"
             cols="80"
-            
             />
-            
+            </div>
             </div>
         )
     }
