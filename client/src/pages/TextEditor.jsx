@@ -8,19 +8,36 @@ const TextEditor = () => {
     const [body,setBody] = useState("");
     const [background, setBackground] = useState('');
     const [typingTimeout, setTypingTimeout] = useState(null);
-
+    const [selectionStart, setSelectionStart] = useState(null);
     const [selectedText, setSelectedText] = useState('');
+    const [selectionTimeout, setSelectionTimeout] = useState(null);
 
     const handleSelection = (e) => {
         const start = e.target.selectionStart;
-        const end = e.target.selectionEnd; 
+        const end = e.target.selectionEnd;
         const selectedText = body.substring(start, end);
+        if (selectedText) {
+            if (selectionTimeout) {
+                clearTimeout(selectionTimeout);
+            }
 
-        if (selectedText){
-            setSelectedText(selectedText);
-            saveContentToServer(selectedText);
-            console.log(selectedText);
+            const timeout = setTimeout(() => {
+            const selectionTime = Date.now() - selectionStart;
+            if (selectionTime >= 2000) { // Check if selection duration is 2 seconds
+                setSelectedText(selectedText);
+                saveContentToServer(selectedText); // Send to server
+                console.log(selectedText);
+                }
+            }, 2000);
+    
+            setSelectionTimeout(timeout);
+            setSelectionStart(Date.now());
+        } else {
+            if (selectionTimeout) {
+                clearTimeout(selectionTimeout);
+            }
         }
+
     }
 
     const redStart = 191, greenStart = 200, blueStart = 255; // Red: RGB(255, 0, 0)
