@@ -106,7 +106,7 @@ def compute_entity_similarity(text: str, entity: str):
     # Compute cosine similarity
     cosine_sim = F.cosine_similarity(cls_text, cls_entity).item()
     return cosine_sim
-def NER_with_SciBERT(text: str, similarity_threshold: float = 0.56):
+def NER_with_SciBERT(text: str, similarity_threshold: float = .56):
     """
     Apply NER to identify research-related entities and validate them using SciBERT similarity.
     Returns a list of unique, contextually relevant entities.
@@ -122,7 +122,6 @@ def NER_with_SciBERT(text: str, similarity_threshold: float = 0.56):
         
     # Extract entities using spaCy NER
     #preprocess the text
-    text = preprocess_text(text)
     entities = NER(text)
     
     # List to store validated entities
@@ -150,24 +149,24 @@ def keyword_pull_article(
     first_sentences,
     keywords,
     similarity,
-    similarity_threshold: float = 0.3,  
-    sentiment_weight: float = 0.2,     
+    similarity_threshold: float = 0.32,  
+    sentiment_weight: float = 0.35,     
     similarity_cap: float = 0.9445,
     top_k: int = 150,                    
-    string_similarity_threshold: float = 0.09):  
+    string_similarity_threshold: float = 0.1):  
     if first_sentences:
        sorted_keywords = first_sentences(string, first_sentences)
     else:
     # Sort keywords by their corresponding similarity scores in descending order
         sorted_keywords = [kw for _, kw in sorted(zip(similarity, keywords), reverse=True)]
     # Determine the split index at roughly one-third of the keywords
-    split_idx = max(1, len(sorted_keywords) // 6)
+    split_idx = max(1, len(sorted_keywords) // 7)
     
     # Join the first third of the keywords with '+'
-    primary_keywords = "+".join([k+"~5" for k in sorted_keywords[:split_idx]])
+    primary_keywords = "+".join([k+"~6" for k in sorted_keywords[:split_idx]])
     
     # Join the remaining keywords with '|'
-    secondary_keywords = "|".join([k+"~5" for k in sorted_keywords[split_idx:]]) if len(sorted_keywords) > split_idx else ""
+    secondary_keywords = "|".join([k+"~6" for k in sorted_keywords[split_idx:]]) if len(sorted_keywords) > split_idx else ""
     
     # Construct the final query
     query = f"{primary_keywords}+({secondary_keywords})" if secondary_keywords else primary_keywords
