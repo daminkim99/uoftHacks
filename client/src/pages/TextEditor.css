@@ -4,6 +4,7 @@
 	font-family: 'Inter', sans-serif;
     color: black;
     margin-top: 0;
+    
 }
 
 .textbox {
@@ -79,7 +80,7 @@
     margin:5vw;
     height:90vh;
     margin-left:5vw;
-    margin-top: 12vw;
+
 }
 
 .parent{
