@@ -2,7 +2,7 @@
 
 By Oliver Harrison, Ada Selcuk, Grace Li, Elena Kim
 
-![Coalescence gif](https://github.com/user-attachments/assets/0a443ccf-35c9-40f8-8391-03de0459b226)
+![Coalescence gif](https://github.com/user-attachments/assets/175bdf7b-6e45-45c7-b0b5-114a25692b5f)
 
 Introducing Coalescence, your personal research assistant playing devil's advocate. It challenges your perspectives, questions your logic, and pushes your thinking further by relating academic papers that support or oppose your argument. This ensures your academic paper is bulletproof and is always backed by the best available research. 
 
