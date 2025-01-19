@@ -15,6 +15,7 @@ body {
   background-color: white;
 }
 
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -47,6 +48,14 @@ body {
   padding: 2em;
 } */
 
-.logo{
-  margin-top:0;
+.logo {
+  height: 60px;
+  width: auto;
+  margin-top: 1%;
+  margin-left: 1%;
+  /* margin: 10px; */
 }
+
+/* .logo{
+  margin-top:0;
+} */

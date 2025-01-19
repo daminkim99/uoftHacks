@@ -48,11 +48,38 @@
     height:80vh;
 }
 
+.instructions-title {
+        color: #000;
+        font-family: Inter;
+        width: 100%;
+        font-size: 3vw !important;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.799px;
+}
+
+.instructions {
+    display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: center;
+	flex-shrink: 0;
+	color: #635878;
+	font-family: Inter;
+	font-size: 1.5vw;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: -0.51px;
+}
+
 .match-container {
     flex: 1;
     margin:5vw;
     height:90vh;
     margin-left:5vw;
+    margin-top: 12vw;
 }
 
 .parent{
