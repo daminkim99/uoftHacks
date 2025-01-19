@@ -44,10 +44,18 @@ def preprocess_text(text: str) -> str:
     preprocessed_text = ' '.join(lemmatized_tokens)
     return preprocessed_text
 
+def preprocess_text_ner(text: str) -> str:
+    """
+    Preprocess the input text by removing non-alphanumeric characters,"""
+    # Remove non-alphanumeric characters
+    text = re.sub(r'\W+', ' ', text)
+    return text
+
 def NER(text: str):
     """
     Apply NER to identify research-related entities
     """
+    text = preprocess_text_ner(text)
     nlp = spacy.load("en_core_sci_sm")
     doc = nlp(text)
     research_entities = [ent.text for ent in doc.ents]
