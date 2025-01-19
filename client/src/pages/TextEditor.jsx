@@ -174,10 +174,7 @@ const calculateGradient = (sentiment1, sentiment2) => {
             <div className="parent">
              <div className='text-editor'> 
                 {/* <a href="/Keyword">Go Back</a> */}
-                <div className="header-container">
-                    <h1 className='instructions-title'>Now, enter your research paper...</h1>
-                    <h2 className='match-title'>Arguments</h2>
-                </div>
+                <h1 className='instructions-title'>Now, enter your research paper...</h1>
                 <h2 className='instructions'>Coalesce will give related documents, which agrees or opposes your argument, when you pause typing or you highlight your text for two seconds.</h2>
                 <textarea 
                        className="textbox"
@@ -188,6 +185,7 @@ const calculateGradient = (sentiment1, sentiment2) => {
                     />
              </div>
              <div className='match-container'>
+                <h2 className='match-title'>Arguments</h2>
                         <div className='match-rectangle' style={{ '--background-gradient': background }} >
                             {isLoading && <div className = "loader-container"><div class="loader"></div></div>}
                             <AnimatePresence mode="wait">
