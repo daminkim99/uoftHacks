@@ -54,6 +54,7 @@ def preprocess_text_ner(text: str) -> str:
 def NER(text: str):
     """
     Apply NER to identify research-related entities
+    na
     """
     text = preprocess_text_ner(text)
     nlp = spacy.load("en_core_sci_sm")
@@ -114,7 +115,7 @@ def compute_entity_similarity(text: str, entity: str):
     # Compute cosine similarity
     cosine_sim = F.cosine_similarity(cls_text, cls_entity).item()
     return cosine_sim
-def NER_with_SciBERT(text: str, similarity_threshold: float = .56):
+def NER_with_SciBERT(text: str, similarity_threshold: float = .5):
     """
     Apply NER to identify research-related entities and validate them using SciBERT similarity.
     Returns a list of unique, contextually relevant entities.
@@ -160,8 +161,8 @@ def keyword_pull_article(
     keywords_doc,
     similarity,
     similarity_threshold: float = 0.32,  
-    sentiment_weight: float = 0.35,     
-    similarity_cap: float = 0.89,
+    sentiment_weight: float = 0.4,     
+    similarity_cap: float = 0.7,
     top_k: int = 150,                    
     string_similarity_threshold: float = 0.1):  
     if first_sentence:
@@ -170,13 +171,13 @@ def keyword_pull_article(
     # Sort keywords by their corresponding similarity scores in descending order
         sorted_keywords = [kw for _, kw in sorted(zip(similarity, keywords), reverse=True)]
     # Determine the split index at roughly one-third of the keywords
-    split_idx = max(1, len(sorted_keywords) // 7)
+    split_idx = max(1, len(sorted_keywords) // 8)
     
     # Join the first third of the keywords with '+'
-    primary_keywords = "+".join([k+"~6" for k in sorted_keywords[:split_idx]])
+    primary_keywords = "+".join([k+"~7" for k in sorted_keywords[:split_idx]])
     
     # Join the remaining keywords with '|'
-    secondary_keywords = "|".join([k+"~6" for k in sorted_keywords[split_idx:]]) if len(sorted_keywords) > split_idx else ""
+    secondary_keywords = "|".join([k+"~7" for k in sorted_keywords[split_idx:]]) if len(sorted_keywords) > split_idx else ""
     
     # Construct the final query
     query = f"{primary_keywords}+({secondary_keywords})" if secondary_keywords else primary_keywords
@@ -206,27 +207,38 @@ def keyword_pull_article(
     if not abstracts:
         return {"keywords": keywords,"results": dict(response)}
     
-    # Remove non-string abstracts and their corresponding titles
+# Remove non-string abstracts and their corresponding titles, authors, and urls
     valid_indices = [i for i, abstract in enumerate(abstracts) if isinstance(abstract, str) and len(abstract) > 0]
     abstracts = [abstracts[i] for i in valid_indices]
     titles = [titles[i] for i in valid_indices]
     authors = [authors_1[i] for i in valid_indices]
     urls = [urls[i] for i in valid_indices]
 
-    # Remove duplicate abstracts and their corresponding titles, authors, and urls
+    # Remove duplicate titles (case-insensitive and substring checks)
     unique_abstracts = []
     unique_titles = []
     unique_authors = []
     unique_urls = []
-    seen = set()
-    for i, abstract in enumerate(abstracts):
-        if abstract not in seen:
-            seen.add(abstract)
-            unique_abstracts.append(abstract)
+    seen_titles = set()
+
+    # Sort indices by title length in descending order to process longer titles first
+    sorted_indices = sorted(range(len(titles)), key=lambda i: len(titles[i]), reverse=True)
+
+    for i in sorted_indices:
+        lower_title = titles[i].lower()
+        duplicate = False
+        for seen_title in seen_titles:
+            if lower_title in seen_title or seen_title in lower_title:
+                duplicate = True
+                break
+        if not duplicate:
+            seen_titles.add(lower_title)
+            unique_abstracts.append(abstracts[i])
             unique_titles.append(titles[i])
             unique_authors.append(authors[i])
             unique_urls.append(urls[i])
 
+    # Update the main lists with unique entries
     abstracts = unique_abstracts
     titles = unique_titles
     authors = unique_authors
@@ -236,10 +248,10 @@ def keyword_pull_article(
     vectorizer = TfidfVectorizer()
     vectors = vectorizer.fit_transform(abstracts)
     similarity_matrix = cosine_similarity(vectors)
-    
+
     # Precompute sentiment scores for all abstracts
     sentiment_scores = [sia.polarity_scores(abstract)['compound'] for abstract in abstracts]
-    
+
     # Vectorize the 'string' for comparison
     string_vec = vectorizer.transform([string])
     string_similarities = cosine_similarity(string_vec, vectors).squeeze()
