@@ -88,13 +88,11 @@ const TextEditor = () => {
 
             if (response.status >= 200 && response.status < 300) {
                 console.log("Content saved successfully");
-                if (yesData) {
-                    setData(true);
-                }
+                setData(true);
             } else {
                 throw new Error("Failed to save content");
             }
-    
+
         } catch (error) {
             console.error("Error saving content:", error);
         }

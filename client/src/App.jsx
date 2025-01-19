@@ -10,7 +10,7 @@ function App() {
       <div className='logo'>
         <a href="/">
         <header>
-        Logo
+          Logo
         </header>
         </a>
       </div>
