@@ -43,21 +43,21 @@
 
 .text-editor {
     flex: 2;
-    margin-left:5vw;
+    margin-left:6vw;
     margin-right:2.5vw;
-    margin-top:5vw;
-    height:80vh;
+    /* margin-top:5vw; */
+    height:60vh;
 }
 
 .instructions-title {
-        color: #000;
-        font-family: Inter;
-        width: 100%;
-        font-size: 3vw !important;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: -0.799px;
+    color: #000;
+    font-family: Inter;
+    width: 100%;
+    font-size: 3vw !important;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.799px;
 }
 
 .instructions {

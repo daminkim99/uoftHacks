@@ -115,7 +115,10 @@ const calculateGradient = (sentiment1, sentiment2) => {
     }
 
     const saveContentToServer = async (value) => {
-        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(true);
+        }, 1500);
+
         try {
             const response = await axios.post("http://127.0.0.1:8001/extract_keywords", {
                 text: value,
