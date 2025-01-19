@@ -56,10 +56,10 @@ const TextEditor = () => {
     const calculateGradient = (sentiment1, sentiment2) => {
         const color1 = interpolateColor(sentiment1); // Color for the first paper
         const color2 = interpolateColor(sentiment2); // Color for the second paper
-        if(sentiment1 < 0){
-            return `linear-gradient(0deg, ${color2} 0%, ${color1} 100%)`;
-        }else{
+        if(sentiment1 <= 0){
             return `linear-gradient(0deg, ${color1} 0%, ${color2} 100%)`;
+        }else{
+            return `linear-gradient(0deg, ${color2} 0%, ${color1} 100%)`;
         }
     };
     
@@ -112,7 +112,7 @@ const TextEditor = () => {
 
     const combinedData = rawData.titles.map((title, index) => ({
         title,
-        author: rawData.authors[index], /* author will be in 2d array*/
+        sentiments: rawData.sentiments[index], /* author will be in 2d array*/
         url: rawData.urls[index],
         abstract: rawData.abstracts[index],
     }));
@@ -150,7 +150,7 @@ const TextEditor = () => {
              </div>
              <div className='match-container'>
                     <h2 className='match-title'>Arguments</h2>
-                        <div className='match-rectangle' style={{ '--background-gradient': background }} >
+                        <div className='match-rectangle'>
                             {yesData && <div className='padding-rectangle' >
                                 {combinedData.map((paper, index) => (
                                     <motion.a
@@ -168,7 +168,13 @@ const TextEditor = () => {
                                         }}
                                         >
                                         <h3 className='science-title'>{paper.title}</h3>
-                                        <h4 className='authors'>{paper.author}</h4>
+                                        <div className='tooltip'>
+                                            <span className='sentiment-underline'>Sentiment: {paper.sentiments}</span>
+                                            <span className='tooltip-text'>
+                                                Sentiment represents the emotional tone of the paper, ranging from -1 (negative) to 1 (positive).
+                                            </span>
+                                        </div>
+                                        
                                         <p className='abstract'>{paper.abstract}</p>
                                     </motion.a>
                                 ))}
