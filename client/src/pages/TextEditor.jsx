@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './TextEditor.css'
 import rawData from '../../server/data.json'
-import { motion } from "motion/react"
+import { motion, AnimatePresence } from "motion/react"
 import axios from 'axios';
 
 const TextEditor = () => {
@@ -175,7 +175,7 @@ const calculateGradient = (sentiment1, sentiment2) => {
              <div className='text-editor'> 
                 {/* <a href="/Keyword">Go Back</a> */}
                 <h1 className='instructions-title'>Now, enter your research paper...</h1>
-                <h2 className='instructions'>Coalesce will give related documents, which agrees or opposes your argument when you pause typing or you highlight your text for two seconds.</h2>
+                <h2 className='instructions'>Coalesce will give related documents, which agrees or opposes your argument, when you pause typing or you highlight your text for two seconds.</h2>
                     <textarea 
                        className="textbox"
                        value = {body}
@@ -188,7 +188,10 @@ const calculateGradient = (sentiment1, sentiment2) => {
                     <h2 className='match-title'>Arguments</h2>
                         <div className='match-rectangle' style={{ '--background-gradient': background }} >
                             {isLoading && <div className = "loader-container"><div class="loader"></div></div>}
-                            {yesData && <div className='padding-rectangle' >
+                            <AnimatePresence mode="wait">
+                            {yesData && <motion.div className='padding-rectangle' 
+                            key={JSON.stringify(combinedData)}
+                            >
                                 {combinedData.map((paper, index) => (
                                     <motion.a
                                         className='smaller-match-rectangle' 
@@ -198,9 +201,10 @@ const calculateGradient = (sentiment1, sentiment2) => {
                                         rel="noopener noreferrer"
                                         initial={{ opacity: 0, y: 50 }}
                                         animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -50 }}
                                         transition={{
-                                            duration: 0.8,
-                                            delay: index * 0.2,
+                                            duration: 0.5,
+                                            delay: index * 0.1,
                                             ease: "easeOut",
                                         }}
                                         >
@@ -216,14 +220,9 @@ const calculateGradient = (sentiment1, sentiment2) => {
                                     </motion.a>
                                 ))}
 
-                                {/* <hr className="rectangle-separator" /> */}
-
-                                {/* <div className='smaller-match-rectangle'>
-                                    <h3 className='science-title'>Scientific Title</h3>
-                                    <h4 className='authors'>Author1, Author2</h4>
-                                    <p className='abstract'>Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. Abstract. </p>
-                                </div> */}
-                            </div>}
+                                
+                            </motion.div>}
+                            </AnimatePresence>
                         </div>
                 </div>
             </div>
