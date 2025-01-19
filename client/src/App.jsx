@@ -1,6 +1,7 @@
 import React from 'react'
 import {Outlet} from 'react-router-dom'
 import './App.css'
+import logo from './assets/logo.png'
 
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
       <div className='logo'>
         <a href="/">
         <header>
-        Logo
+          <img src={logo} alt="logo" className='logo'/>
         </header>
         </a>
       </div>

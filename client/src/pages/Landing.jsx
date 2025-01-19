@@ -13,7 +13,7 @@ const Landing = () => {
             <div className='container'>
             <div className='box1'>
             <h2 className='sub'>Strengthen <span className="every">every</span> argument</h2>
-            <h3 className='sub-sub'>Your own personal research assistant playing devil's advocate</h3>
+            <h3 className='sub-sub'>Coalesce is your own personal research assistant playing devil's advocate</h3>
             <button className='landing-button primary' onClick={handleClick}>Try it for free</button>
             </div>
             <div>
