@@ -41,7 +41,7 @@ function Keyword() {
 
     return (
         <div>
-            <h1 className='keywords-title'>Enter some keywords about your research...</h1>
+            <h1 className='keywords-title'>First, enter some keywords about your research...</h1>
             <h2 className='keywords-sub'>Separate your keywords by pressing enter.</h2>
             <div className='input-container'>
                 <div className="keywords-area">
