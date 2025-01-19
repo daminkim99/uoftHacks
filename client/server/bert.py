@@ -115,6 +115,7 @@ def NER_with_SciBERT(text: str, similarity_threshold: float = .56):
     - text: The input text to process.
     - similarity_threshold: Minimum cosine similarity score to retain an entity.
     """
+    
     first_sentences = False
     if text.count(".") < 2:
         first_sentences = True

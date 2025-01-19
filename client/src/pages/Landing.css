@@ -84,6 +84,7 @@ main {
 	cursor: pointer;
 	border: none;
 	transition: box-shadow 0.3s ease;
+	margin-top: 03%;
 }
 
 .landing-button:hover {
