@@ -56,8 +56,11 @@ const TextEditor = () => {
     const calculateGradient = (sentiment1, sentiment2) => {
         const color1 = interpolateColor(sentiment1); // Color for the first paper
         const color2 = interpolateColor(sentiment2); // Color for the second paper
-        return `linear-gradient(0deg, ${color1} 0%, ${color2} 100%)`;
-
+        if(sentiment1 < 0){
+            return `linear-gradient(0deg, ${color2} 0%, ${color1} 100%)`;
+        }else{
+            return `linear-gradient(0deg, ${color1} 0%, ${color2} 100%)`;
+        }
     };
     
     const handleBody= e => {

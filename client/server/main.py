@@ -27,10 +27,11 @@ async def save_keywords(request: Request):
 
 @app.post("/extract_keywords")
 def extract_keywords_endpoint(input: TextInput):
-    keywords = NER_with_SciBERT(input.text)
-    
-    keywords_list = [k["keyword"] for k in keywords]
-    similarities  = [k["similarity"] for k in keywords]
-    return(keyword_pull_article(input.text,keywords_list,similarities))
+    res = NER_with_SciBERT(input.text)
+    with open("keywords.json", "r") as f:
+        keywords_doc = json.load(f)
+    keywords_list = [k["keyword"] for k in res[0]]
+    similarities  = [k["similarity"] for k in res[0]]
+    return(keyword_pull_article(input.text,res[1],keywords_list,keywords_doc,similarities))
 
 
