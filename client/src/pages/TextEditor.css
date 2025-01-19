@@ -89,6 +89,20 @@
     height:100vh;
 }
 
+.header-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    gap: 20vw;
+}
+
+.match-title{
+    font-family: Inter;
+	font-size: 1.5vw;
+}
+
 .match-rectangle {
     width: 90%;
     height: 95%;
