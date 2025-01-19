@@ -131,8 +131,6 @@ const calculateGradient = (sentiment1, sentiment2) => {
         }
     };
 
-
-
     useEffect(() => {
         const { sentiments } = rawData;
         if (sentiments && sentiments.length >= 2) {
@@ -184,7 +182,7 @@ const calculateGradient = (sentiment1, sentiment2) => {
              </div>
              <div className='match-container'>
                     <h2 className='match-title'>Arguments</h2>
-                        <div className='match-rectangle'>
+                        <div className='match-rectangle' style={{ '--background-gradient': background }} >
                             {yesData && <div className='padding-rectangle' >
                                 {combinedData.map((paper, index) => (
                                     <motion.a
