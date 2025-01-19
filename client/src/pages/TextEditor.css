@@ -4,6 +4,7 @@
 	font-family: 'Inter', sans-serif;
     color: black;
     margin-top: 0;
+    
 }
 
 .textbox {
@@ -72,6 +73,7 @@
 	font-weight: 400;
 	line-height: normal;
 	letter-spacing: -0.51px;
+    margin-bottom: 1vw;
 }
 
 .match-container {
@@ -79,7 +81,7 @@
     margin:5vw;
     height:90vh;
     margin-left:5vw;
-    margin-top: 12vw;
+
 }
 
 .parent{
@@ -87,6 +89,15 @@
     flex-direction:row;
     width:100vw;
     height:100vh;
+}
+
+.match-title{
+    font-family: Inter;
+	font-size: 1.5vw;
+    margin-bottom: 1vw;
+    font-weight: bold;
+    padding-left: 2.5vw;
+    text-align: center;
 }
 
 .match-rectangle {

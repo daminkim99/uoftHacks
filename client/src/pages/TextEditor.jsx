@@ -185,7 +185,7 @@ const calculateGradient = (sentiment1, sentiment2) => {
                     />
              </div>
              <div className='match-container'>
-                    <h2 className='match-title'>Arguments</h2>
+                <h2 className='match-title'>Arguments</h2>
                         <div className='match-rectangle' style={{ '--background-gradient': background }} >
                             {isLoading && <div className = "loader-container"><div class="loader"></div></div>}
                             <AnimatePresence mode="wait">
