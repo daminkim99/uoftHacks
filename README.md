@@ -20,6 +20,8 @@ Begin by entering some keywords of your research topic. This, in turn, enables y
 - Figma
 - FastAPI
 - Semantic Scholar API
+- NLP
+- sciBERT
 
 ## Technical Logic
 
