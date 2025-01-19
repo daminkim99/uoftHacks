@@ -41,27 +41,60 @@ const TextEditor = () => {
 
     }
 
-    const redStart = 191, greenStart = 200, blueStart = 255; //blue top
-    const redEnd = 247, greenEnd = 163, blueEnd = 163; //red top
+// Define start and end colors for interpolation
+const blueStart = { r: 191, g: 200, b: 255 }; // Represents strong positive sentiment
+const redEnd = { r: 247, g: 163, b: 163 };   // Represents strong negative sentiment
 
+/**
+ * Interpolates between blue and red based on the sentiment value.
+ * @param {number} value - Sentiment value ranging from -1 (negative) to 1 (positive).
+ * @returns {string} - RGB color string.
+ */
+const interpolateColor = (value) => {
+    // Clamp the value between -1 and 1
+    const clampedValue = Math.max(-1, Math.min(1, value));
 
-    const interpolateColor = (value) => {
-        const red = Math.round(redStart + (redEnd - redStart) * (value + 1) / 2);  // Interpolate red between 255 and 0
-        const green = Math.round(greenStart + (greenEnd - greenStart) * (value + 1) / 2);  // Interpolate green (remains 0 in this case)
-        const blue = Math.round(blueStart + (blueEnd - blueStart) * (value + 1) / 2);  // Interpolate blue between 0 and 255
-        return `rgb(${red}, ${green}, ${blue})`;
-    };
+    // Calculate interpolation factor
+    const factor = (clampedValue + 1) / 2; // Maps -1 to 0 and 1 to 1
 
-    // Function to calculate the gradient color based on similarity
-    const calculateGradient = (sentiment1, sentiment2) => {
-        const color1 = interpolateColor(sentiment1); // Color for the first paper
-        const color2 = interpolateColor(sentiment2); // Color for the second paper
-        if(sentiment1 > 0){
-            return `linear-gradient(0deg, ${color2} 0%, ${color1} 100%)`;
-        }else{
-            return `linear-gradient(0deg, ${color1} 0%, ${color2} 100%)`;
-        }
-    };
+    // Interpolate each color channel
+    const red = Math.round(blueStart.r + (redEnd.r - blueStart.r) * (1 - factor));
+    const green = Math.round(blueStart.g + (redEnd.g - blueStart.g) * (1 - factor));
+    const blue = Math.round(blueStart.b + (redEnd.b - blueStart.b) * (1 - factor));
+
+    return `rgb(${red}, ${green}, ${blue})`;
+};
+
+/**
+ * Calculates a linear gradient based on two sentiment values.
+ * @param {number} sentiment1 - Sentiment score for the first article.
+ * @param {number} sentiment2 - Sentiment score for the second article.
+ * @returns {string} - CSS linear-gradient string.
+ */
+const calculateGradient = (sentiment1, sentiment2) => {
+    const color1 = interpolateColor(sentiment1); // Color for the first paper
+    const color2 = interpolateColor(sentiment2); // Color for the second paper
+
+    // Enhanced debugging statements
+    console.log(`Sentiment1: ${sentiment1}, Color1: ${color1}`);
+    console.log(`Sentiment2: ${sentiment2}, Color2: ${color2}`);
+
+    // Consistently order colors based on sentiment values
+    // Positive sentiments: color1 (positive) -> color2 (positive)
+    // Negative sentiments: color2 (negative) -> color1 (negative)
+    // Mixed sentiments: color1 -> color2
+
+    if (sentiment1 >= 0 && sentiment2 >= 0) {
+        // Both sentiments are positive
+        return `linear-gradient(180deg, ${color1} 0%, ${color2} 100%)`;
+    } else if (sentiment1 < 0 && sentiment2 < 0) {
+        // Both sentiments are negative
+        return `linear-gradient(180deg, ${color2} 0%, ${color1} 100%)`;
+    } else {
+        // Mixed sentiments
+        return `linear-gradient(180deg, ${color1} 0%, ${color2} 100%)`;
+    }
+};
     
     const handleBody= e => {
         const value = e.target.value; 
