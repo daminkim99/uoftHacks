@@ -168,8 +168,8 @@ const TextEditor = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -50 }}
                                         transition={{
-                                            duration: 0.8,
-                                            delay: index * 0.2,
+                                            duration: 0.5,
+                                            delay: index * 0.1,
                                             ease: "easeOut",
                                         }}
                                         >
