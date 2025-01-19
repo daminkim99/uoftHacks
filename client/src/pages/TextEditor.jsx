@@ -12,6 +12,7 @@ const TextEditor = () => {
     const [selectedText, setSelectedText] = useState('');
     const [selectionTimeout, setSelectionTimeout] = useState(null);
     const [yesData, setData] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSelection = (e) => {
         const start = e.target.selectionStart;
@@ -114,6 +115,7 @@ const calculateGradient = (sentiment1, sentiment2) => {
     }
 
     const saveContentToServer = async (value) => {
+        setIsLoading(true);
         try {
             const response = await axios.post("http://127.0.0.1:8001/extract_keywords", {
                 text: value,
@@ -128,6 +130,8 @@ const calculateGradient = (sentiment1, sentiment2) => {
 
         } catch (error) {
             console.error("Error saving content:", error);
+        }finally {
+            setIsLoading(false);
         }
     };
 
@@ -183,6 +187,7 @@ const calculateGradient = (sentiment1, sentiment2) => {
              <div className='match-container'>
                     <h2 className='match-title'>Arguments</h2>
                         <div className='match-rectangle' style={{ '--background-gradient': background }} >
+                            {isLoading && <div className = "loader-container"><div class="loader"></div></div>}
                             {yesData && <div className='padding-rectangle' >
                                 {combinedData.map((paper, index) => (
                                     <motion.a
