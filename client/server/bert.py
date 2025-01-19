@@ -153,7 +153,7 @@ def keyword_pull_article(
     similarity,
     similarity_threshold: float = 0.32,  
     sentiment_weight: float = 0.35,     
-    similarity_cap: float = 0.9445,
+    similarity_cap: float = 0.89,
     top_k: int = 150,                    
     string_similarity_threshold: float = 0.1):  
     if first_sentence:
