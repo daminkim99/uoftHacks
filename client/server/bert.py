@@ -300,15 +300,24 @@ def keyword_pull_article(
         "authors": [authors[top_index], authors[bot_index]],
         "urls": [urls[top_index], urls[bot_index]],
         "abstracts": [abstracts[top_index], abstracts[bot_index]],
-        "sentiments": best_sentiments,
+        "sentiments": [best_sentiments[0], best_sentiments[1]],  # Changed from tuple to list
         "similarity": best_similarity,
         "similarity_to_string": [similarity_to_string_top, similarity_to_string_bot]
     }
+
+    # Sort the entries so that the highest sentiment is first
+    if res["sentiments"][0] < res["sentiments"][1]:
+        res["titles"].reverse()
+        res["authors"].reverse()
+        res["urls"].reverse()
+        res["abstracts"].reverse()
+        res["sentiments"].reverse()  # Now res["sentiments"] is a list
+        res["similarity_to_string"].reverse()
+
     #save the json file
     #make json nice to look at when export
     res = json.dumps(res, indent=4)
     res = json.loads(res)
-    print(res)
     with open("data.json", "w") as f:
         json.dump(res, f, indent=4)
     return {"status": "Oliver's Keywords saved successfully!"}
